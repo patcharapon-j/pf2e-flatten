@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1
+
+- **Fixed the right-click context menu not appearing on Foundry v14.** Foundry v13
+  renamed the directory context hook to the `get<Document>ContextOptions` pattern and
+  the old `getActorDirectoryEntryContext` hook no longer fires on v14, so the
+  Flatten / Unflatten entries never got added. The module now listens for
+  `getActorContextOptions`.
+
 ## 1.0.0
 
 - **Flattening no longer colours NPC sheets red.** The NPC sheet highlights a statistic

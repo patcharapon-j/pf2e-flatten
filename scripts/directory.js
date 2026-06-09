@@ -82,11 +82,12 @@ export function renderDirectoryButtons(_app, html) {
 
 /**
  * Adds Flatten / Unflatten entries to the actor directory right-click menu.
- * Bound to the `getActorDirectoryEntryContext` hook.
- * @param {HTMLElement|JQuery} _html
+ * Bound to the `getActorContextOptions` hook (v13+). The first argument is the
+ * ActorDirectory application; the second is the mutable array of menu entries.
+ * @param {Application} _directory
  * @param {object[]} options
  */
-export function addContextMenuOptions(_html, options) {
+export function addContextMenuOptions(_directory, options) {
 	options.unshift(
 		{
 			name: t("context.flatten"),
