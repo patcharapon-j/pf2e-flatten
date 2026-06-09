@@ -1,18 +1,89 @@
-# pf2e-flatten
+# PF2e Flatten Proficiency
 
-A module to apply the proficiency without level changes to PF2e NPCs in FoundryVTT. This module overhauls the NPC Flattening function from the excellent PF2e-Toolbox https://github.com/Djphoenix719/FVTT-PF2EToolbox/releases module, to make it compatible with the new NPC character sheets. If you are switching over from the PF2e toolbox to this module, you will need to unflatten any NPCs flattened with the Toolbox module and reflatten them with this module.  
+A Foundry VTT module for the **Pathfinder Second Edition** system that applies the
+[Proficiency Without Level](https://2e.aonprd.com/Rules.aspx?ID=1372) variant rule
+to your actors. It adds a custom modifier equal to the negative of an actor's level
+to all of their checks and DCs — saves, skills, attacks, spell DCs, and so on — so
+you can run the lower-power variant without re-keying any statistics.
 
-This modules adds a new menu option when you right click on any NPC in your actor directory that allows you to flatten them. Which is to say it subtracts their current level from saves, skills, attacks and spell DCs. It also has a corresponding function that allows you to reverse that process.
+> Compatible with **Foundry VTT v13–v14** and the Pathfinder 2e system.
 
-Additionally support for the half-level proficiency (rounded up) is now available. 
+## Features
 
-The module also adds toggleable functionality to automatically flatten any NPCs that you drag out of a compendium into your world. This automatic flattening won't affect new NPC you create from scratch, instead if you are manually entering NPC stats that you need to flatten, you can flatten them using the context menu above. Furthermore, if you store any of your flattened NPCs in compendiums the automatic flattening functionality will skip them when you reimport them into your active world.
+- **Flatten / Unflatten any actor** from the actor directory right-click menu.
+- **Bulk Flatten All / Unflatten All** buttons in the Actors sidebar header (GM only).
+- **Automatic flattening** of actors dragged in from compendiums (toggleable). Actors
+  you build from scratch are left alone, and actors stored already-flattened in a
+  compendium are not double-flattened on import.
+- **Reduced proficiency** support: use the full level or **half level** (rounded up or
+  down) for the variant.
+- **Level sync**: a flattened actor is automatically re-flattened when its level changes,
+  so the modifier always matches the current level.
+- **Clean sheet colouring**: flattening on its own no longer turns NPC statistics red.
+  Numbers still turn red (or green) when a *condition or effect* lowers (or raises) them
+  relative to the flattened baseline, so penalties and buffs remain visible.
+- Recall Knowledge DCs are handled by the PF2e system's own Proficiency Without Level
+  variant rule and are intentionally left untouched here.
 
-Note: Flattening now saves the NPCs current level, which means if you adjust the NPCs level prior to unflattening the unflattening process will use the old level, and not the updated one.
+## Installation
 
-The DCs of recall knowledge checks for NPCs are presently handled automatically by the Proficiency without Level variant rule built into the PF2e core system. 
+In Foundry VTT, open **Add-on Modules → Install Module** and paste this manifest URL:
 
-This module falls under the Apache 2.0 License, and would not have been possible without the foundtions developed by DJphoenix719 in their PF2e-Toolbox module.
+```
+https://github.com/patcharapon-j/pf2e-flatten/releases/latest/download/module.json
+```
 
+This link always points at the latest release, so Foundry will offer updates as new
+versions are published. You can also download a release archive from the
+[Releases page](https://github.com/patcharapon-j/pf2e-flatten/releases).
 
+## Usage
 
+1. Enable the module in your world (**Game Settings → Manage Modules**).
+2. Right-click an actor in the Actors sidebar and choose **PF2e Flatten** or
+   **PF2e Unflatten**, or use the **Flatten All / Unflatten All** buttons in the
+   sidebar header.
+3. Configure behaviour under **Game Settings → Configure Settings → PF2e Flatten**:
+   - **Automatically flatten new actors** — flatten eligible actors as they enter the world.
+   - **Enable flattening for PCs** — also apply the actions to player characters.
+   - **Reduced proficiency mode** — full level or half level.
+   - **Rounding mode** — round the half-level value up or down.
+
+> Changing the multiplier or rounding settings does not retroactively update already
+> flattened actors. Use **Unflatten All** followed by **Flatten All** to re-apply.
+
+## Releasing (maintainers)
+
+Releases are produced by the manually-triggered **Release** GitHub Action
+(`.github/workflows/release.yml`):
+
+1. Go to the repository's **Actions** tab and select **Release**.
+2. Click **Run workflow**, enter the version (for example `1.0.1`), and run it.
+
+The workflow stamps `module.json` with the version and release URLs, builds
+`module.zip`, tags the commit, and publishes a GitHub Release with `module.json` and
+`module.zip` attached — which is what the manifest link above resolves to.
+
+## Project layout
+
+```
+module.json                 Module manifest
+scripts/
+  pf2e-flatten.js           Entry point; registers hooks
+  constants.js              Shared constants and enums
+  settings.js               World setting registration
+  flatten.js                Core flatten / unflatten logic
+  directory.js              Sidebar buttons and context menu
+lang/en.json                Localization strings
+.github/workflows/release.yml  Manual release workflow
+```
+
+## Credits & License
+
+This module is a fork and rework of
+[League-of-Foundry-Developers/pf2e-flatten](https://github.com/League-of-Foundry-Developers/pf2e-flatten),
+which itself overhauled the NPC flattening function from
+[DJphoenix719's PF2E Toolbox](https://github.com/Djphoenix719/FVTT-PF2EToolbox).
+Thank you to the original authors and contributors.
+
+Released under the [Apache 2.0 License](LICENSE).
