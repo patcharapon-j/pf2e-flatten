@@ -19,6 +19,9 @@ you can run the lower-power variant without re-keying any statistics.
   down) for the variant.
 - **Level sync**: a flattened actor is automatically re-flattened when its level changes,
   so the modifier always matches the current level.
+- **Clean sheet colouring**: flattening on its own no longer turns NPC statistics red.
+  Numbers still turn red (or green) when a *condition or effect* lowers (or raises) them
+  relative to the flattened baseline, so penalties and buffs remain visible.
 - Recall Knowledge DCs are handled by the PF2e system's own Proficiency Without Level
   variant rule and are intentionally left untouched here.
 

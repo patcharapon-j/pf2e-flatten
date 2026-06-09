@@ -10,11 +10,16 @@ import { MODULE_ID, Settings } from "./constants.js";
 import { addContextMenuOptions, renderDirectoryButtons } from "./directory.js";
 import { flattenActor, hasModifier, isUpdatable, refreshActor } from "./flatten.js";
 import { getSetting, registerSettings } from "./settings.js";
+import { patchActorSheets } from "./sheet.js";
 
 Hooks.once("init", () => {
 	registerSettings();
 	console.log(`${MODULE_ID} | Initialized`);
 });
+
+// Once the system has registered its sheets, stop flattening from painting
+// statistics red while leaving condition/effect colouring intact.
+Hooks.once("ready", patchActorSheets);
 
 // Sidebar UI: bulk buttons + per-actor context menu entries.
 Hooks.on("renderActorDirectory", renderDirectoryButtons);
