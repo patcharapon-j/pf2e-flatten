@@ -2,7 +2,7 @@
   "id": "pf2e-flatten",
   "title": "PF2e Flatten Proficiency",
   "description": "Applies the Proficiency Without Level variant rule to Pathfinder 2e actors. Flatten or unflatten NPCs (and optionally PCs) from the sidebar, with optional automatic flattening for actors dragged in from compendiums and support for half-level proficiency.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     {
       "name": "Patcharapon Joksamut",

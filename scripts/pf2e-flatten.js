@@ -22,8 +22,10 @@ Hooks.once("init", () => {
 Hooks.once("ready", patchActorSheets);
 
 // Sidebar UI: bulk buttons + per-actor context menu entries.
+// v13+ renamed the directory context hook to the `get<Document>ContextOptions`
+// pattern; the old `getActorDirectoryEntryContext` no longer fires on v14.
 Hooks.on("renderActorDirectory", renderDirectoryButtons);
-Hooks.on("getActorDirectoryEntryContext", addContextMenuOptions);
+Hooks.on("getActorContextOptions", addContextMenuOptions);
 
 // Auto-flatten freshly created actors (e.g. dragged from a compendium).
 Hooks.on("createActor", async (actor, _options, userId) => {
